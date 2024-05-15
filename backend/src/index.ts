@@ -1,8 +1,9 @@
-import express, { Request, Response, NextFunction, Router } from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors'
-
+import * as dotenv from "dotenv";
 dotenv.config();
+import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors'
+import rootRouter from './routes/index'
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,9 +11,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello, TypeScript Node Express!');
-});
+
+app.use('/api', rootRouter);
 
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
